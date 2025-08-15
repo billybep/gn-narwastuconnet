@@ -60,4 +60,9 @@ Kembali ke folder root gn-narwastuconnect
 docker compose up -d --build
 ```
 
-
+## Entity & API di NestJS
+```
+docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g module users
+docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g controller users
+docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g service users
+```
