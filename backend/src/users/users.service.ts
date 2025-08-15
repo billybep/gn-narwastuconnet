@@ -19,6 +19,6 @@ export class UsersService {
     // Tambah user baru
     create(userData: Partial<User>) {
         const user = this.usersRepository.create(userData); // Buat instance entity
-        return this.usersRepository.save(user);             // Simpan ke database
+        return this.usersRepository.save(user);             
     }
 }

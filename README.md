@@ -1,68 +1,72 @@
-# Docker
+# Narwastu Connect - Church Community Mobile App
 
+<!-- 
+A comprehensive mobile application for church members featuring daily bible verses, 
+worship schedules, and prayer request functionality.
+-->
 
-## Database Setup 
-🎯 Tujuan: Kita punya folder proyek, dan bisa menjalankan database (misalnya MySQL) lewat Docker, tanpa install manual di local machine.
+## 📱 Application Overview
+<!-- Core features of the application -->
+- ✝️ Digital spiritual resources
+- 📖 Daily Bible verse (Verse of the Day)
+- 🗓 Weekly worship schedules
+- 🎶 Hymns database
+- 🙏 Prayer request system
+- 🔔 Church event notifications
+- 📱 Available for Android & iOS
 
-Run container DB MySQL
+## 🛠️ Technology Stack
+
+### Frontend (Mobile)
+<!-- Modern Flutter architecture choices -->
+- **Framework**: `Flutter 3.x+`
+- **Language**: `Dart`
+- **State Management**: `Riverpod` (recommended)
+- **Local DB**: `Hive` (Lightweight NoSQL)
+- **Internationalization**: `intl` package
+- **Notifications**: `Firebase Cloud Messaging`
+- **Testing**:
+  - `Mockito` (unit testing)
+  - `Flutter Driver` (integration testing)
+
+### Backend
+<!-- Robust backend architecture -->
+- **Framework**: `NestJS` (TypeScript)
+- **Database**: `PostgreSQL` (Relational DB)
+- **API**: `RESTful` + `JWT Authentication`
+- **Deployment**: `Docker` + `Railway.app`
+
+## 🏗️ Project Structure
+<!-- 
+Modular structure optimized for solo developer 
+maintainability and scalability
+-->
+
 ```
-docker compose up -d
-```
-
-##### Notes
-
-How to check:
-```
-<!-- masuk ke docker-container | nama container | masuk ke db mysql -->
-docker exec -it gn-db mysql -u root -p
-# masukkan password: root
-SHOW DATABASES;
-```
-
-Harusnya muncul database narwastu
-
-## Backend NestJS di Docker
-🎯 Tujuan: Punya backend NestJS yang berjalan di container terpisah, bisa connect ke MySQL container
-
-Inisialisasi proyek NestJS
-pada root directory
-```
-docker run --rm -v ${PWD}:/app -w /app node:20 npx @nestjs/cli new backend --package-manager npm
-```
-
-Install TypeORM + MySQL Driver
-pada backend directory
-```
-docker run --rm -v ${PWD}:/app -w /app node:20 npm install @nestjs/typeorm typeorm mysql2
-```
-
-Konfigurasi koneksi database
-edit : [backend] src/app.module.ts:
-```
-import { TypeOrmModule } from '@nestjs/typeorm';
-
-// add this on imports
-TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'db', // pakai nama service di docker-compose
-      port: 3306,
-      username: 'narwastuuser',
-      password: 'narwastupass',
-      database: 'narwastu',
-      autoLoadEntities: true,
-      synchronize: true, // jangan di production
-    }),
-```
-
-Jalankan seluruh stack
-Kembali ke folder root gn-narwastuconnect
-```
-docker compose up -d --build
+gn-narwastuconnect/
+├── mobile/ # Flutter project
+│ ├── lib/
+│ │ ├── core/ # Configurations, utilities
+│ │ ├── features # Feature modules
+│ │ └── ... # Additional files
+│
+└── backend/ # NestJS project
+├── src/
+│ ├── modules/ # Feature modules
+│ └── ... # Additional files
 ```
 
-## Entity & API di NestJS
-```
-docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g module users
-docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g controller users
-docker run --rm -v ${PWD}:/app -w /app node:20 npx nest g service users
-```
+<!-- Quick start guide -->
+## 🚀 Getting Started
+1. Clone repository
+2. For Flutter: `cd mobile && flutter pub get`
+3. For Backend: `cd backend && npm install`
+4. See individual folder documentation
+
+## 🔗 Key Integrations
+<!-- Required external services -->
+- Firebase Project (FCM)
+- PostgreSQL Database
+- Bible API (optional)
+
+<!-- Additional notes -->
