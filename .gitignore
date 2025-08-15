@@ -1,0 +1,11 @@
+# Exclude node_modules (umum untuk Node.js)
+backend/node_modules/
+frontend/node_modules/
+
+# Exclude environment files
+.env
+*.log
+
+# Exclude build folders
+dist/
+build/

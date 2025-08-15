@@ -1,0 +1,33 @@
+services:
+# DATABASE
+  db:
+    image: mysql:8.0
+    container_name: gn-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: narwastu
+      MYSQL_USER: narwastuuser
+      MYSQL_PASSWORD: narwastupass
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+# BACKEND [ NestJS ]
+  backend:
+    build: ./backend
+    container_name: gn-backend
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+    command: sh -c "npm install && npm run start:dev"
+    depends_on:
+      - db
+
+volumes:
+  db_data:
+
+  
